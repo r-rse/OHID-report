@@ -19,7 +19,7 @@ It looks like you are trying to set the working directory as the parent of `laun
 
 I had to comment `setwd(wd_path)` out.
 
-If this MUST be used (which should be extremely rare), it is best to use `on.exit(setwd(here::here()))` to ensure the wd is reset in case of an error.
+If this MUST be used (which should be extremely rare), it is best to use `on.exit(setwd(here::here()))` to ensure the wd is reset in case of an error (this only works within functions however).
 
 ### Setting up data access
 

@@ -15,7 +15,20 @@ source("launch.R")
 #> Error in setwd(wd_path) : cannot change working directory
 ```
 
-It looks like you are trying to set the working directory as the parent of `launch.R`? This seems a really brittle approach. It's mcuh better to avoid setting working directories and rather assume all processes will be performed in the root of the directory and use relative paths from the root for everything else.
+The error comes from:
+
+```{r, eval=FALSE}
+# Identify/Specify model home directory
+wd_path <- ifelse(
+  .Platform$OS.type == "unix",
+  dirname(Sys.getenv("SPHERE_LAUNCH_PATH")),
+  dirname(sys.frame(1)$ofile)
+)
+```
+
+I think it's because it's picking up my system as `unix` and returning `""` because `dirname(Sys.getenv("SPHERE_LAUNCH_PATH"))` is not set.
+
+In any case, even running `dirname(sys.frame(1)$ofile)` on my system returns `""`. I'm not 100% sure what `dirname(sys.frame(1)$ofile)` is trying to achieve here but I would suggest it's brittle practice atm.
 
 I had to comment `setwd(wd_path)` out.
 

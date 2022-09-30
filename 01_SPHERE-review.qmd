@@ -1,0 +1,68 @@
+---
+title: "SPHERE-review"
+author: "Anna Krystalli - `r-rse`"
+theme: materia
+---
+
+## Initial Comments
+
+### Reproducibility & Dependency Management
+
+#### Use `renv` for dependency management
+
+While `renv` is best suited for project rather than package dependency management, once functionality is packaged separately, actual modelling runs will be more stable managed by package [`renv`](https://rstudio.github.io/renv/articles/renv.html)`.`
+
+While the use of `checkpoint` is indeed a good start, there is a lot of code dedicated to effectively reproducing `renv` functionality. More importantly,
+
+-   lists of packages appear to be managed manually and separately for CRAN & GitHub packages. All of this can be handled automatically by `renv` through `renv.lock` files.
+
+-   Exact project libraries based on such files can be easily installed with `renv::restore()`,
+
+-   Updates can be performed normally using for example, `remotes::update_packages` and the library updated with `renv::snapshots()`.
+
+-   Lockfiles can be version controlled alongside code in `renv::history()` can be used view the history of the lockfile. If an upgrade goes astray, you can revert the lockfile to a specific commit, e.g. `renv::revert(commit = "abc123")`
+
+-   Finally `renv::equip()` ensures that system prerequisites for compilation of a package are available (e.g Rtools on windows).
+
+```{r}
+#| echo: false
+knitr::include_url({"https://rstudio.github.io/renv/articles/renv.html"})
+```
+
+### Updating packages as part of workflow
+
+It is not good practice to be updating or installing packages as part of the workflow. It is better to separate that step.
+
+### Use package `config` for configuration management
+
+While user inputs are well documented and easily configurable through the `user-input.R` file, it's better practice to manage user configuration inputs more formally through a config file and access them through package [`config`](https://rstudio.github.io/config/)
+
+```{r}
+#| echo: false
+knitr::include_url({"https://rstudio.github.io/config/"})
+```
+
+-   Ensures config values are used explicitly avoiding having all loaded into the global environment where they can potentially be overwritten.
+
+-   Allows for different configurations to be set for different environments/situations which can be specifically activated by setting a single environment variable: `R_CONFIG_ACTIVE` .
+
+-   As such configurations under different scenarios can be stored in the same file rather than being overwritten in `use-input.R` every time a different configuration is required, increasing transparency.
+
+-   Configurations for HPC can also be explicitly set in the config file and activated by setting `R_CONFIG_ACTIVE` to e.g. `HPC` . This would be far more robust than the current detection of `unix` as the OS which is not explicit enough and could cause problems should a user be running the modelling workflow on a local unix system or even testing the workflow out in a unix docker container (an issue I encountered).
+
+## Orchestrating workflows with `targets` package
+
+Given a large part of the software is composed of orchestrating workflows and chaining models together, using package [`targets`](https://books.ropensci.org/targets/) is strongly recommended.
+
+> The [`targets`](https://docs.ropensci.org/targets/) package is a [Make](https://www.gnu.org/software/make/)-like pipeline tool for Statistics and data science in R. With [`targets`](https://docs.ropensci.org/targets/), you can maintain a reproducible workflow without repeating yourself. [`targets`](https://docs.ropensci.org/targets/) learns how your pipeline fits together, skips costly runtime for tasks that are already up to date, runs only the necessary computation, supports implicit parallel computing, abstracts files as R objects, and shows tangible evidence that the results match the underlying code and data.
+
+```{r}
+#| echo: false
+knitr::include_url({"https://books.ropensci.org/targets/"})
+```
+
+### 
+
+### Code repetition
+
+The code appears to be very repetive in parts, for example

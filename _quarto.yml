@@ -2,7 +2,7 @@ project:
   type: website
 
 website:
-  title: "Report Title"
+  title: "OHID Sphere Optimisation Project Report"
   page-navigation: true
   navbar:
     logo: assets/logo/r-rse-logo2.png
@@ -21,8 +21,10 @@ website:
     style: "docked"
     title: 'Contents'
     contents:
-      - text: "Report 1"
-        href: 01_Report_1.qmd
+      - text: "SPHERE High Level Review"
+        href: 01_SPHERE-review.qmd
+      - text: "SPHERE Debugging Comments"
+        href: 02_SPHERE-debugging.qmd
 
 format:
   html:

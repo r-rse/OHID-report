@@ -222,7 +222,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>It looks like you are trying to set the working directory as the parent of <code>launch.R</code>? This seems a really brittle approach. It’s mcuh better to avoid setting working directories and rather assume all processes will be performed in the root of the directory and use relative paths from the root for everything else.</p>
 <p>I had to comment <code>setwd(wd_path)</code> out.</p>
-<p>If this MUST be used (which should be extremely rare), it is best to use <code>on.exit(setwd(here::here()))</code> to ensure the wd is reset in case of an error.</p>
+<p>If this MUST be used (which should be extremely rare), it is best to use <code>on.exit(setwd(here::here()))</code> to ensure the wd is reset in case of an error (this only works within functions however).</p>
 <section id="setting-up-data-access" class="level3">
 <h3 class="anchored" data-anchor-id="setting-up-data-access">Setting up data access</h3>
 <p>It took me quite some time to figure out that there is hidden structure expected.</p>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Anna Krystalli - r-rse">
+
+<title>OHID Sphere Optimisation Project Report - SPHERE-review</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./02_SPHERE-debugging.html" rel="next">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <img src="./assets/logo/r-rse-logo2.png" alt="">
+    <span class="navbar-title">OHID Sphere Optimisation Project Report</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">About</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">SPHERE-review</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_SPHERE-review.html" class="sidebar-item-text sidebar-link active">SPHERE High Level Review</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_SPHERE-debugging.html" class="sidebar-item-text sidebar-link">SPHERE Debugging Comments</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#initial-comments" id="toc-initial-comments" class="nav-link active" data-scroll-target="#initial-comments">Initial Comments</a>
+  <ul class="collapse">
+  <li><a href="#reproducibility-dependency-management" id="toc-reproducibility-dependency-management" class="nav-link" data-scroll-target="#reproducibility-dependency-management">Reproducibility &amp; Dependency Management</a></li>
+  <li><a href="#updating-packages-as-part-of-workflow" id="toc-updating-packages-as-part-of-workflow" class="nav-link" data-scroll-target="#updating-packages-as-part-of-workflow">Updating packages as part of workflow</a></li>
+  <li><a href="#use-package-config-for-configuration-management" id="toc-use-package-config-for-configuration-management" class="nav-link" data-scroll-target="#use-package-config-for-configuration-management">Use package <code>config</code> for configuration management</a></li>
+  </ul></li>
+  <li><a href="#orchestrating-workflows-with-targets-package" id="toc-orchestrating-workflows-with-targets-package" class="nav-link" data-scroll-target="#orchestrating-workflows-with-targets-package">Orchestrating workflows with <code>targets</code> package</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#code-repetition" id="toc-code-repetition" class="nav-link" data-scroll-target="#code-repetition">Code repetition</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">SPHERE-review</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Anna Krystalli - <code>r-rse</code> </p>
+          </div>
+  </div>
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="initial-comments" class="level2">
+<h2 class="anchored" data-anchor-id="initial-comments">Initial Comments</h2>
+<section id="reproducibility-dependency-management" class="level3">
+<h3 class="anchored" data-anchor-id="reproducibility-dependency-management">Reproducibility &amp; Dependency Management</h3>
+<section id="use-renv-for-dependency-management" class="level4">
+<h4 class="anchored" data-anchor-id="use-renv-for-dependency-management">Use <code>renv</code> for dependency management</h4>
+<p>While <code>renv</code> is best suited for project rather than package dependency management, once functionality is packaged separately, actual modelling runs will be more stable managed by package <a href="https://rstudio.github.io/renv/articles/renv.html"><code>renv</code></a><code>.</code></p>
+<p>While the use of <code>checkpoint</code> is indeed a good start, there is a lot of code dedicated to effectively reproducing <code>renv</code> functionality. More importantly,</p>
+<ul>
+<li><p>lists of packages appear to be managed manually and separately for CRAN &amp; GitHub packages. All of this can be handled automatically by <code>renv</code> through <code>renv.lock</code> files.</p></li>
+<li><p>Exact project libraries based on such files can be easily installed with <code>renv::restore()</code>,</p></li>
+<li><p>Updates can be performed normally using for example, <code>remotes::update_packages</code> and the library updated with <code>renv::snapshots()</code>.</p></li>
+<li><p>Lockfiles can be version controlled alongside code in <code>renv::history()</code> can be used view the history of the lockfile. If an upgrade goes astray, you can revert the lockfile to a specific commit, e.g.&nbsp;<code>renv::revert(commit = "abc123")</code></p></li>
+<li><p>Finally <code>renv::equip()</code> ensures that system prerequisites for compilation of a package are available (e.g Rtools on windows).</p></li>
+</ul>
+<div class="cell">
+<iframe src="https://rstudio.github.io/renv/articles/renv.html" width="672" height="400px" data-external="1">
+</iframe>
+</div>
+</section>
+</section>
+<section id="updating-packages-as-part-of-workflow" class="level3">
+<h3 class="anchored" data-anchor-id="updating-packages-as-part-of-workflow">Updating packages as part of workflow</h3>
+<p>It is not good practice to be updating or installing packages as part of the workflow. It is better to separate that step.</p>
+</section>
+<section id="use-package-config-for-configuration-management" class="level3">
+<h3 class="anchored" data-anchor-id="use-package-config-for-configuration-management">Use package <code>config</code> for configuration management</h3>
+<p>While user inputs are well documented and easily configurable through the <code>user-input.R</code> file, it’s better practice to manage user configuration inputs more formally through a config file and access them through package <a href="https://rstudio.github.io/config/"><code>config</code></a></p>
+<div class="cell">
+<iframe src="https://rstudio.github.io/config/" width="672" height="400px" data-external="1">
+</iframe>
+</div>
+<ul>
+<li><p>Ensures config values are used explicitly avoiding having all loaded into the global environment where they can potentially be overwritten.</p></li>
+<li><p>Allows for different configurations to be set for different environments/situations which can be specifically activated by setting a single environment variable: <code>R_CONFIG_ACTIVE</code> .</p></li>
+<li><p>As such configurations under different scenarios can be stored in the same file rather than being overwritten in <code>use-input.R</code> every time a different configuration is required, increasing transparency.</p></li>
+<li><p>Configurations for HPC can also be explicitly set in the config file and activated by setting <code>R_CONFIG_ACTIVE</code> to e.g.&nbsp;<code>HPC</code> . This would be far more robust than the current detection of <code>unix</code> as the OS which is not explicit enough and could cause problems should a user be running the modelling workflow on a local unix system or even testing the workflow out in a unix docker container (an issue I encountered).</p></li>
+</ul>
+</section>
+</section>
+<section id="orchestrating-workflows-with-targets-package" class="level2">
+<h2 class="anchored" data-anchor-id="orchestrating-workflows-with-targets-package">Orchestrating workflows with <code>targets</code> package</h2>
+<p>Given a large part of the software is composed of orchestrating workflows and chaining models together, using package <a href="https://books.ropensci.org/targets/"><code>targets</code></a> is strongly recommended.</p>
+<blockquote class="blockquote">
+<p>The <a href="https://docs.ropensci.org/targets/"><code>targets</code></a> package is a <a href="https://www.gnu.org/software/make/">Make</a>-like pipeline tool for Statistics and data science in R. With <a href="https://docs.ropensci.org/targets/"><code>targets</code></a>, you can maintain a reproducible workflow without repeating yourself. <a href="https://docs.ropensci.org/targets/"><code>targets</code></a> learns how your pipeline fits together, skips costly runtime for tasks that are already up to date, runs only the necessary computation, supports implicit parallel computing, abstracts files as R objects, and shows tangible evidence that the results match the underlying code and data.</p>
+</blockquote>
+<div class="cell">
+<iframe src="https://books.ropensci.org/targets/" width="672" height="400px" data-external="1">
+</iframe>
+</div>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+</section>
+<section id="code-repetition" class="level3">
+<h3 class="anchored" data-anchor-id="code-repetition">Code repetition</h3>
+<p>The code appears to be very repetive in parts, for example</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./02_SPHERE-debugging.html" class="pagination-link">
+        <span class="nav-page-text">SPHERE Debugging Comments</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.r-rse.eu/">r-rse | Research Software Engineering Services in R</a>
+  </li>  
+</ul>
+      </div>
+  </div>
+</footer>
+
+
+
+</body></html>

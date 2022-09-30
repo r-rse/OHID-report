@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>OHID Sphere Optimisation Project Report - SPHERE-debugging</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./01_SPHERE-review.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar docked nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <img src="./assets/logo/r-rse-logo2.png" alt="">
+    <span class="navbar-title">OHID Sphere Optimisation Project Report</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html">About</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">SPHERE-debugging</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01_SPHERE-review.html" class="sidebar-item-text sidebar-link">SPHERE High Level Review</a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02_SPHERE-debugging.html" class="sidebar-item-text sidebar-link active">SPHERE Debugging Comments</a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#setting-wd" id="toc-setting-wd" class="nav-link active" data-scroll-target="#setting-wd">Setting <code>wd</code></a>
+  <ul class="collapse">
+  <li><a href="#setting-up-data-access" id="toc-setting-up-data-access" class="nav-link" data-scroll-target="#setting-up-data-access">Setting up data access</a></li>
+  <li><a href="#loading-dependencies-from-csv-files" id="toc-loading-dependencies-from-csv-files" class="nav-link" data-scroll-target="#loading-dependencies-from-csv-files">Loading dependencies from csv files</a></li>
+  <li><a href="#missing-variables-in-meta_distributionvariables-table." id="toc-missing-variables-in-meta_distributionvariables-table." class="nav-link" data-scroll-target="#missing-variables-in-meta_distributionvariables-table.">Missing variables in <code>meta_DistributionVariables</code> table.</a></li>
+  <li><a href="#using-system-unix-to-detect-hpc-brittle" id="toc-using-system-unix-to-detect-hpc-brittle" class="nav-link" data-scroll-target="#using-system-unix-to-detect-hpc-brittle">Using system <code>unix</code> to detect HPC brittle</a></li>
+  <li><a href="#nomis-data-problem" id="toc-nomis-data-problem" class="nav-link" data-scroll-target="#nomis-data-problem">NOMIS data problem</a></li>
+  </ul></li>
+  <li><a href="#questions" id="toc-questions" class="nav-link" data-scroll-target="#questions">Questions</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">SPHERE-debugging</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="setting-wd" class="level2">
+<h2 class="anchored" data-anchor-id="setting-wd">Setting <code>wd</code></h2>
+<p>Getting an error straight away when trying to source <code>launch.R</code> as</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">source</span>(<span class="st">"launch.R"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ##------ Mon Sep 19 13:00:30 2022 ------##</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Launching SPHERE Modelling Platform on dcs33297</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Error in setwd(wd_path) : cannot change working directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>It looks like you are trying to set the working directory as the parent of <code>launch.R</code>? This seems a really brittle approach. It’s mcuh better to avoid setting working directories and rather assume all processes will be performed in the root of the directory and use relative paths from the root for everything else.</p>
+<p>I had to comment <code>setwd(wd_path)</code> out.</p>
+<p>If this MUST be used (which should be extremely rare), it is best to use <code>on.exit(setwd(here::here()))</code> to ensure the wd is reset in case of an error.</p>
+<section id="setting-up-data-access" class="level3">
+<h3 class="anchored" data-anchor-id="setting-up-data-access">Setting up data access</h3>
+<p>It took me quite some time to figure out that there is hidden structure expected.</p>
+<p>I had placed the sqlite database in a given folder, let’s say the Desktops (<code>~/Desktop</code>) for illustrative purposes and changed the value of <code>HPC_datapath</code> in <code>private.csv</code> to <code>~/Desktop</code> .</p>
+<p>However the code expects a folder the same name as the value of <code>LiveProject_db</code> in which the database should be contained (i.e.&nbsp;the actual path to the database was being assigned to <code>data_dir</code> as <code>~/Documents/workflows/OHID/data/Y063_SynthMod</code> and the full path resolving to <code>"~/Documents/workflows/OHID/data/Y063_SynthMod/Y103_SynthMod_dev.db"</code> . This is both unexpected and somewhat undocumented. Checking that the path actually resolved to a database file with an informative error that actually prints the path where the data is expected would have helped a lot.</p>
+</section>
+<section id="loading-dependencies-from-csv-files" class="level3">
+<h3 class="anchored" data-anchor-id="loading-dependencies-from-csv-files">Loading dependencies from csv files</h3>
+<p>The practice is not best practice and brittle for a number of reasons:</p>
+<p>Necessity to manually track dependencies when this can be automated with <code>renv</code>. Changes to the local library can be captured with <code>renv::snapshot()</code> while dependencies required for scripts in a particular directory can be identified with <code>renv::dependencies()</code>. If you did need to load a whole bunch of packages for a module you could use: .</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>renv<span class="sc">::</span><span class="fu">dependencies</span>()<span class="sc">$</span>Package <span class="sc">|&gt;</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Finding R package dependencies ... Done!</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: knitr</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: rmarkdown</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: renv</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'renv'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:rmarkdown':
+
+    run</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:stats':
+
+    embed, update</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:utils':
+
+    history, upgrade</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following object is masked from 'package:devtools':
+
+    install</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    autoload, load, remove</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[[1]]
+[1] TRUE
+
+[[2]]
+[1] TRUE
+
+[[3]]
+[1] TRUE</code></pre>
+</div>
+</div>
+<p>Even better would be to clean up afterwards with:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>module_deps <span class="ot">&lt;-</span> renv<span class="sc">::</span><span class="fu">dependencies</span>()<span class="sc">$</span>Package <span class="sc">|&gt;</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unique</span>() </span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(module_deps, require, <span class="at">character.only =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co"># MODULE CODE</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="fu">lapply</span>(<span class="fu">paste0</span>(<span class="st">"package:"</span>, module_deps), detach, <span class="at">character.only =</span> <span class="cn">TRUE</span>, <span class="at">force =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>However the order in which dependencies are unlinked become important and errors might be thrown if a package which is a dependency of another loaded package is attempted to be detached first while forcing detachment with <code>force = TRUE</code> might compromise the functioning of other packages unrelated to the module.</p>
+<p>In any case, all this can be avoided by not loading and unloading packages which pollutes the search path. Instead it is STRONGLY recommended that functions are called using the <code>::</code> operator. Performance gains are not worth the problems having so many packages loaded introduces, makes the function namespace explicit in the code. A few key packages like <code>dplyr</code> that are used heavily throughout can be loaded.</p>
+</section>
+<section id="missing-variables-in-meta_distributionvariables-table." class="level3">
+<h3 class="anchored" data-anchor-id="missing-variables-in-meta_distributionvariables-table.">Missing variables in <code>meta_DistributionVariables</code> table.</h3>
+<p>I’m using the default attribute in <code>user-input.R</code> list:</p>
+<pre><code>Birthdate BinaryCHD BinaryCKD BinaryColC BinaryPA BinaryPIA BinaryStroke BinaryT2DM Binary5PD BMIPercentile DeathCause EthGrp HLQ IMDDecile Income LTLA19 NSSEC RBAC11 RUC11 SBPPercentile Sex SexualOrientation TTWDistance TTWMethod</code></pre>
+<p>However, <code>IMDDecile</code> does not exist in the <code>meta_DistributionVariables</code> in <code>Y103_SynthMod_dev.db</code> and <code>create-variable-groupings.R</code> fails with a not very informative error which does not prompt user on what needs rectifying. Ideally this could be handled automatically (i.e.&nbsp;the attribute ignored and a warning issued to the user to inform them) or at the very least, an error which directs the user to the <code>user-inputs.R</code> to change the setting for <code>IMDDecile</code> to <code>FALSE</code> . In any case it feels like this should have been checked earlier and more formally.</p>
+</section>
+<section id="using-system-unix-to-detect-hpc-brittle" class="level3">
+<h3 class="anchored" data-anchor-id="using-system-unix-to-detect-hpc-brittle">Using system <code>unix</code> to detect HPC brittle</h3>
+<p>Working on a mac which evaluates to a <code>unix</code> system, <code>launch.R</code> would quit on me at the end of the session even in interactive mode.</p>
+</section>
+<section id="nomis-data-problem" class="level3">
+<h3 class="anchored" data-anchor-id="nomis-data-problem">NOMIS data problem</h3>
+<p>The NOMIS query returns <code>NA</code> results</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">GEOGRAPHY_CODE =</span> <span class="fu">c</span>(<span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000047"</span>, </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>, </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000047"</span>, <span class="st">"E06000001"</span>, <span class="st">"E06000001"</span>, <span class="st">"E06000001"</span>, <span class="st">"E06000001"</span>, </span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000001"</span>, <span class="st">"E06000001"</span>), <span class="at">MEASURE =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">5</span>, </span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>), <span class="at">OBS_VALUE =</span> <span class="fu">c</span>(<span class="cn">NA</span>, </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, </span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>)), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="sc">-</span>20L), <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>, </span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="st">"data.frame"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   GEOGRAPHY_CODE MEASURE OBS_VALUE
+1       E06000005       6        NA
+2       E06000005       7        NA
+3       E06000005       8        NA
+4       E06000005       9        NA
+5       E06000005      10        NA
+6       E06000005      11        NA
+7       E06000005       5        NA
+8       E06000047       6        NA
+9       E06000047       7        NA
+10      E06000047       8        NA
+11      E06000047       9        NA
+12      E06000047      10        NA
+13      E06000047      11        NA
+14      E06000047       5        NA
+15      E06000001       6        NA
+16      E06000001       7        NA
+17      E06000001       8        NA
+18      E06000001       9        NA
+19      E06000001      10        NA
+20      E06000001      11        NA</code></pre>
+</div>
+</div>
+<p>here’s the full response</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">structure</span>(<span class="fu">list</span>(<span class="at">DATE =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>), <span class="at">DATE_NAME =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>), <span class="at">DATE_CODE =</span> <span class="fu">c</span>(<span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>, <span class="dv">2021</span>), <span class="at">DATE_TYPE =</span> <span class="fu">c</span>(<span class="st">"date"</span>, </span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, <span class="st">"date"</span>, </span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="st">"date"</span>), <span class="at">DATE_TYPECODE =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">DATE_SORTORDER =</span> <span class="fu">c</span>(<span class="dv">0</span>, </span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">GEOGRAPHY =</span> <span class="fu">c</span>(<span class="dv">1820327937</span>, <span class="dv">1820327937</span>, </span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="dv">1820327937</span>, <span class="dv">1820327937</span>, <span class="dv">1820327937</span>, <span class="dv">1820327937</span>, <span class="dv">1820327937</span>, <span class="dv">1820327938</span>, </span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="dv">1820327938</span>, <span class="dv">1820327938</span>), <span class="at">GEOGRAPHY_NAME =</span> <span class="fu">c</span>(<span class="st">"Darlington"</span>, <span class="st">"Darlington"</span>, </span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a><span class="st">"Darlington"</span>, <span class="st">"Darlington"</span>, <span class="st">"Darlington"</span>, <span class="st">"Darlington"</span>, <span class="st">"Darlington"</span>, </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a><span class="st">"County Durham"</span>, <span class="st">"County Durham"</span>, <span class="st">"County Durham"</span>), <span class="at">GEOGRAPHY_CODE =</span> <span class="fu">c</span>(<span class="st">"E06000005"</span>, </span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, <span class="st">"E06000005"</span>, </span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a><span class="st">"E06000005"</span>, <span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>, <span class="st">"E06000047"</span>), <span class="at">GEOGRAPHY_TYPE =</span> <span class="fu">c</span>(<span class="st">"local authorities: district / unitary (as of April 2019)"</span>, </span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a><span class="st">"local authorities: district / unitary (as of April 2019)"</span>, <span class="st">"local authorities: district / unitary (as of April 2019)"</span>, </span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="st">"local authorities: district / unitary (as of April 2019)"</span>, <span class="st">"local authorities: district / unitary (as of April 2019)"</span>, </span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a><span class="st">"local authorities: district / unitary (as of April 2019)"</span>, <span class="st">"local authorities: district / unitary (as of April 2019)"</span>, </span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a><span class="st">"local authorities: district / unitary (as of April 2019)"</span>, <span class="st">"local authorities: district / unitary (as of April 2019)"</span>, </span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a><span class="st">"local authorities: district / unitary (as of April 2019)"</span>), </span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">GEOGRAPHY_TYPECODE =</span> <span class="fu">c</span>(<span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>, </span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="dv">434</span>, <span class="dv">434</span>, <span class="dv">434</span>), <span class="at">GEOGRAPHY_SORTORDER =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">0</span>, </span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>), <span class="at">MEASURE =</span> <span class="fu">c</span>(<span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), </span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">MEASURE_NAME =</span> <span class="fu">c</span>(<span class="st">"Age specific fertility rate : Aged 20-24"</span>, </span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age specific fertility rate : Aged 25-29"</span>, <span class="st">"Age specific fertility rate : Aged 30-34"</span>, </span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age specific fertility rate : Aged 35-39"</span>, <span class="st">"Age specific fertility rate : Aged 40-44"</span>, </span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age specific fertility rate : Aged 45 and over"</span>, <span class="st">"Age specific fertility rate : Aged under 20"</span>, </span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age specific fertility rate : Aged 20-24"</span>, <span class="st">"Age specific fertility rate : Aged 25-29"</span>, </span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Age specific fertility rate : Aged 30-34"</span>), <span class="at">MEASURE_CODE =</span> <span class="fu">c</span>(<span class="dv">6</span>, </span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">11</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>), <span class="at">MEASURE_TYPE =</span> <span class="fu">c</span>(<span class="st">"measures"</span>, </span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">"measures"</span>, <span class="st">"measures"</span>, <span class="st">"measures"</span>, <span class="st">"measures"</span>, <span class="st">"measures"</span>, </span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    <span class="st">"measures"</span>, <span class="st">"measures"</span>, <span class="st">"measures"</span>, <span class="st">"measures"</span>), <span class="at">MEASURE_TYPECODE =</span> <span class="fu">c</span>(<span class="dv">1000</span>, </span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>, <span class="dv">1000</span>), <span class="at">MEASURE_SORTORDER =</span> <span class="fu">c</span>(<span class="dv">0</span>, </span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>), <span class="at">MEASURES =</span> <span class="fu">c</span>(<span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>, </span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    <span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>, <span class="dv">20100</span>), <span class="at">MEASURES_NAME =</span> <span class="fu">c</span>(<span class="st">"Value"</span>, </span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Value"</span>, <span class="st">"Value"</span>, <span class="st">"Value"</span>, <span class="st">"Value"</span>, <span class="st">"Value"</span>, <span class="st">"Value"</span>, <span class="st">"Value"</span>, </span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Value"</span>, <span class="st">"Value"</span>), <span class="at">OBS_VALUE =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, </span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>), <span class="at">OBS_STATUS =</span> <span class="fu">c</span>(<span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>, </span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>, <span class="st">"Q"</span>), <span class="at">OBS_STATUS_NAME =</span> <span class="fu">c</span>(<span class="st">"These figures are missing."</span>, </span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>    <span class="st">"These figures are missing."</span>, <span class="st">"These figures are missing."</span>, </span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>    <span class="st">"These figures are missing."</span>, <span class="st">"These figures are missing."</span>, </span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>    <span class="st">"These figures are missing."</span>, <span class="st">"These figures are missing."</span>, </span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    <span class="st">"These figures are missing."</span>, <span class="st">"These figures are missing."</span>, </span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    <span class="st">"These figures are missing."</span>), <span class="at">OBS_CONF =</span> <span class="fu">c</span>(<span class="cn">FALSE</span>, <span class="cn">FALSE</span>, </span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>, <span class="cn">FALSE</span>), </span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">OBS_CONF_NAME =</span> <span class="fu">c</span>(<span class="st">"Free (free for publication)"</span>, <span class="st">"Free (free for publication)"</span>, </span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Free (free for publication)"</span>, <span class="st">"Free (free for publication)"</span>, </span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Free (free for publication)"</span>, <span class="st">"Free (free for publication)"</span>, </span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Free (free for publication)"</span>, <span class="st">"Free (free for publication)"</span>, </span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Free (free for publication)"</span>, <span class="st">"Free (free for publication)"</span></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>    ), <span class="at">URN =</span> <span class="fu">c</span>(<span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d6d20100"</span>, </span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d7d20100"</span>, <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d8d20100"</span>, </span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d9d20100"</span>, <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d10d20100"</span>, </span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d11d20100"</span>, <span class="st">"Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d5d20100"</span>, </span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d6d20100"</span>, <span class="st">"Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d7d20100"</span>, </span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d8d20100"</span>), <span class="at">RECORD_OFFSET =</span> <span class="fu">c</span>(<span class="dv">0</span>, </span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">6</span>, <span class="dv">7</span>, <span class="dv">8</span>, <span class="dv">9</span>), <span class="at">RECORD_COUNT =</span> <span class="fu">c</span>(<span class="dv">2219</span>, <span class="dv">2219</span>, </span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>, <span class="dv">2219</span>)), <span class="at">row.names =</span> <span class="fu">c</span>(<span class="cn">NA</span>, </span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a><span class="sc">-</span>10L), <span class="at">class =</span> <span class="fu">c</span>(<span class="st">"tbl_df"</span>, <span class="st">"tbl"</span>, <span class="st">"data.frame"</span>)) <span class="sc">|&gt;</span> knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped">
+<colgroup>
+<col style="width: 0%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 11%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 1%">
+<col style="width: 9%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 1%">
+<col style="width: 2%">
+<col style="width: 5%">
+<col style="width: 1%">
+<col style="width: 5%">
+<col style="width: 10%">
+<col style="width: 2%">
+<col style="width: 2%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: right;">DATE</th>
+<th style="text-align: right;">DATE_NAME</th>
+<th style="text-align: right;">DATE_CODE</th>
+<th style="text-align: left;">DATE_TYPE</th>
+<th style="text-align: right;">DATE_TYPECODE</th>
+<th style="text-align: right;">DATE_SORTORDER</th>
+<th style="text-align: right;">GEOGRAPHY</th>
+<th style="text-align: left;">GEOGRAPHY_NAME</th>
+<th style="text-align: left;">GEOGRAPHY_CODE</th>
+<th style="text-align: left;">GEOGRAPHY_TYPE</th>
+<th style="text-align: right;">GEOGRAPHY_TYPECODE</th>
+<th style="text-align: right;">GEOGRAPHY_SORTORDER</th>
+<th style="text-align: right;">MEASURE</th>
+<th style="text-align: left;">MEASURE_NAME</th>
+<th style="text-align: right;">MEASURE_CODE</th>
+<th style="text-align: left;">MEASURE_TYPE</th>
+<th style="text-align: right;">MEASURE_TYPECODE</th>
+<th style="text-align: right;">MEASURE_SORTORDER</th>
+<th style="text-align: right;">MEASURES</th>
+<th style="text-align: left;">MEASURES_NAME</th>
+<th style="text-align: left;">OBS_VALUE</th>
+<th style="text-align: left;">OBS_STATUS</th>
+<th style="text-align: left;">OBS_STATUS_NAME</th>
+<th style="text-align: left;">OBS_CONF</th>
+<th style="text-align: left;">OBS_CONF_NAME</th>
+<th style="text-align: left;">URN</th>
+<th style="text-align: right;">RECORD_OFFSET</th>
+<th style="text-align: right;">RECORD_COUNT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 20-24</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d6d20100</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 25-29</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d7d20100</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 30-34</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d8d20100</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 35-39</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d9d20100</td>
+<td style="text-align: right;">3</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 40-44</td>
+<td style="text-align: right;">10</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d10d20100</td>
+<td style="text-align: right;">4</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 45 and over</td>
+<td style="text-align: right;">11</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d11d20100</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327937</td>
+<td style="text-align: left;">Darlington</td>
+<td style="text-align: left;">E06000005</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">Age specific fertility rate : Aged under 20</td>
+<td style="text-align: right;">5</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327937d0d0d0d0d0d0d0d5d20100</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327938</td>
+<td style="text-align: left;">County Durham</td>
+<td style="text-align: left;">E06000047</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 20-24</td>
+<td style="text-align: right;">6</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d6d20100</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="odd">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327938</td>
+<td style="text-align: left;">County Durham</td>
+<td style="text-align: left;">E06000047</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 25-29</td>
+<td style="text-align: right;">7</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d7d20100</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: right;">2219</td>
+</tr>
+<tr class="even">
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: left;">date</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1820327938</td>
+<td style="text-align: left;">County Durham</td>
+<td style="text-align: left;">E06000047</td>
+<td style="text-align: left;">local authorities: district / unitary (as of April 2019)</td>
+<td style="text-align: right;">434</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">Age specific fertility rate : Aged 30-34</td>
+<td style="text-align: right;">8</td>
+<td style="text-align: left;">measures</td>
+<td style="text-align: right;">1000</td>
+<td style="text-align: right;">2</td>
+<td style="text-align: right;">20100</td>
+<td style="text-align: left;">Value</td>
+<td style="text-align: left;">NA</td>
+<td style="text-align: left;">Q</td>
+<td style="text-align: left;">These figures are missing.</td>
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: left;">Free (free for publication)</td>
+<td style="text-align: left;">Nm-202d1d32336e0d1820327938d0d0d0d0d0d0d0d8d20100</td>
+<td style="text-align: right;">9</td>
+<td style="text-align: right;">2219</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>I also tried to download the data manually</p>
+<p><img src="images/paste-430E8BDE.png" class="img-fluid"></p>
+<p>and got similarly empty results</p>
+<p><img src="images/paste-1324646A.png" class="img-fluid"></p>
+</section>
+</section>
+<section id="questions" class="level2">
+<h2 class="anchored" data-anchor-id="questions">Questions</h2>
+<ul>
+<li><p>Why S4</p></li>
+<li><p>Why <code>eval(substitute))</code> when loading S4 methods</p></li>
+<li><p>Why no signature on S4 methods</p></li>
+<li><p>Are overrides by <code>hpc_mode = TRUE</code> important?</p></li>
+</ul>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./01_SPHERE-review.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">SPHERE High Level Review</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+      <div class="nav-footer-center">
+        <ul class="footer-items list-unstyled">
+    <li class="nav-item">
+    <a class="nav-link" href="https://www.r-rse.eu/">r-rse | Research Software Engineering Services in R</a>
+  </li>  
+</ul>
+      </div>
+  </div>
+</footer>
+
+
+
+</body></html>
